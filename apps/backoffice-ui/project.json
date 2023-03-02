@@ -1,0 +1,73 @@
+{
+  "name": "backoffice-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/backoffice-ui/src",
+  "tags": ["admin"],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/backoffice-ui"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "backoffice-ui:build",
+        "proxyConfig": "apps/backoffice-ui/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "backoffice-ui:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "backoffice-ui:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nrwl/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "backoffice-ui:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "backoffice-ui:build:development"
+        },
+        "production": {
+          "buildTarget": "backoffice-ui:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/vite:test",
+      "outputs": ["coverage/apps/backoffice-ui"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/apps/backoffice-ui"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/backoffice-ui/**/*.ts"]
+      }
+    }
+  }
+}
