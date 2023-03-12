@@ -55,6 +55,17 @@
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "vitest"
+    },
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
     }
   }
 }

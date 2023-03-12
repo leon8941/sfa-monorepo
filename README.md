@@ -13,6 +13,9 @@ To use `nx` cli, use `yarn exec nx generate ... `
 Run `yarn exec nx graph` to see a diagram of the dependencies of the projects.
 
 ### Commands used in this repo
+To generate backoffice app
+`yarn exec nx generate @nrwl/next:application backoffice-app --directory=apps --no-interactive`
+
 To generate backoffice ui
 `yarn exec nx g @nrwl/web:app backoffice-ui --bundler=vite --compiler=swc --directory=apps --tags=admin --unitTestRunner=vitest --no-interactive --dry-run`
 
