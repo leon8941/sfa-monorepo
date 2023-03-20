@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sfa/backoffice-db": ["packages/databases/backoffice-db/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
