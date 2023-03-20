@@ -3,9 +3,10 @@
   "npmScope": "sfa-monorepo",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "Mzg2YmUyY2QtNjdjZS00ZDc3LTgxMGItNGY3YzMxNGQ1M2MzfHJlYWQtd3JpdGU="
       }
     }
   },
