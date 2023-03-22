@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "db-migrate": "yarn exec prisma migrate dev --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma --name",
+    "db-studio": "yarn exec prisma studio --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma"
+  },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
     "@nrwl/cypress": "15.8.7",
@@ -47,6 +51,7 @@
     "typescript": "~4.9.5"
   },
   "dependencies": {
+    "@prisma/client": "^4.11.0",
     "@types/koa": "~2.13.5",
     "axios": "^1.0.0",
     "koa": "~2.14.1",
