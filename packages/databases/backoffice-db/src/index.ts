@@ -1,1 +1,1 @@
-export * from './lib/databases-backoffice-db';
+export * from './lib/client';

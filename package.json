@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "db-migrate": "yarn exec prisma migrate dev --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma --name",
-    "db-studio": "yarn exec prisma studio --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma"
+    "db-studio": "yarn exec prisma studio --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma",
+    "db-g": "yarn exec prisma generate --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma",
+    "nx-format": "yarn exec nx format"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
