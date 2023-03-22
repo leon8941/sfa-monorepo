@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "cockroachdb"
-  url      = env("DATABASE_URL")
+  url      = env("BACKOFFICE_DATABASE_URL")
 }
 
 model User {
