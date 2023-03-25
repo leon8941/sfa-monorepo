@@ -1,0 +1,1 @@
+This API are used for open rest api.
