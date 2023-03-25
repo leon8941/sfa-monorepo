@@ -1,8 +1,7 @@
 import { Prisma } from '@prisma/client';
-import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-import { prisma } from '../prisma';
+import { prisma } from '@sfa/backoffice-db';
 import { t } from '../trpc';
 
 const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
@@ -13,7 +12,9 @@ const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
 
 t.router({
   findMany: t.procedure.query(() => {
-    return prisma.user.findMany();
+    return prisma.user.findMany({
+      select: defaultUserSelect,
+    });
   }),
   findById: t.procedure
     .input(
@@ -24,6 +25,9 @@ t.router({
     .query(({ input }) => {
       const { id } = input;
 
-      return prisma.user.findFirstOrThrow({ where: { id: id } });
+      return prisma.user.findFirstOrThrow({
+        select: defaultUserSelect,
+        where: { id: id },
+      });
     }),
 });
