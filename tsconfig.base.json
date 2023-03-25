@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sfa/backoffice-db": ["packages/databases/backoffice-db/src/index.ts"]
+      "@sfa/backoffice-db": ["packages/databases/backoffice-db/src/index.ts"],
+      "@sfa/backoffice-trpc-api": ["packages/backoffice-trpc-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
