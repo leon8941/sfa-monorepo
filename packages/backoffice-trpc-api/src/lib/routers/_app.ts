@@ -9,3 +9,5 @@ export const appRouter = t.router({
   post: userRouter,
   health: healthRouter,
 });
+
+export type AppRouter = typeof appRouter;
