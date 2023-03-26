@@ -1,8 +1,11 @@
 import { initTRPC } from '@trpc/server';
+import superjson from 'superjson';
 
-export const t = initTRPC.create();
+import { createContext } from './context';
 
-// const router = t.router;
-// export const appRouter = router({});
-
-// export type AppRouter = typeof appRouter;
+export const t = initTRPC.context<typeof createContext>().create({
+  transformer: superjson,
+  errorFormatter({ shape }) {
+    return shape;
+  },
+});

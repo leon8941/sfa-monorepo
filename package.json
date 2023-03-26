@@ -8,7 +8,8 @@
     "db-studio": "yarn exec prisma studio --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma",
     "db-g": "yarn exec prisma generate --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma",
     "format": "yarn exec nx format",
-    "serve-api": "yarn db-g && yarn exec nx serve backoffice-api"
+    "serve-api": "yarn db-g && yarn exec nx serve backoffice-api",
+    "serve-backoffice": "yarn db-g && yarn exec nx serve backoffice-apps"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
@@ -66,6 +67,7 @@
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "superjson": "^1.12.2",
     "tslib": "^2.3.0",
     "zod": "^3.21.4"
   }

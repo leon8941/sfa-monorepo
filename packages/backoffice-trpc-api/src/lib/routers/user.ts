@@ -10,7 +10,7 @@ const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   name: true,
 });
 
-t.router({
+export const userRouter = t.router({
   findMany: t.procedure.query(() => {
     return prisma.user.findMany({
       select: defaultUserSelect,
