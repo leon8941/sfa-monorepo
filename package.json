@@ -32,6 +32,7 @@
     "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
+    "autoprefixer": "^10.4.14",
     "babel-jest": "^29.4.1",
     "cypress": "^12.2.0",
     "esbuild": "^0.17.5",
@@ -47,9 +48,11 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "nx": "15.8.7",
+    "postcss": "^8.4.21",
     "prettier": "^2.6.2",
     "prisma": "^4.11.0",
     "react-test-renderer": "18.2.0",
+    "tailwindcss": "^3.3.1",
     "ts-jest": "^29.0.5",
     "ts-node": "10.9.1",
     "typescript": "~4.9.5"
@@ -62,7 +65,6 @@
     "next": "^13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "^3.3.1",
     "tslib": "^2.3.0"
   }
 }

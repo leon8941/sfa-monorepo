@@ -13,8 +13,8 @@ const nextConfig = {
     svgr: false,
   },
   experimental: {
-    appDir: true
-  }
+    appDir: true,
+  },
 };
 
 module.exports = withNx(nextConfig);

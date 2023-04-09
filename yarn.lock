@@ -4372,7 +4372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.9":
+"autoprefixer@npm:^10.4.14, autoprefixer@npm:^10.4.9":
   version: 10.4.14
   resolution: "autoprefixer@npm:10.4.14"
   dependencies:
@@ -11516,7 +11516,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.0.9, postcss@npm:^8.3.5, postcss@npm:^8.4.14, postcss@npm:^8.4.19":
+"postcss@npm:^8.0.9, postcss@npm:^8.3.5, postcss@npm:^8.4.14, postcss@npm:^8.4.19, postcss@npm:^8.4.21":
   version: 8.4.21
   resolution: "postcss@npm:8.4.21"
   dependencies:
@@ -12442,6 +12442,7 @@ __metadata:
     "@types/react-dom": 18.0.11
     "@typescript-eslint/eslint-plugin": ^5.36.1
     "@typescript-eslint/parser": ^5.36.1
+    autoprefixer: ^10.4.14
     axios: ^1.0.0
     babel-jest: ^29.4.1
     cypress: ^12.2.0
@@ -12460,6 +12461,7 @@ __metadata:
     koa: ~2.14.1
     next: ^13.3.0
     nx: 15.8.7
+    postcss: ^8.4.21
     prettier: ^2.6.2
     prisma: ^4.11.0
     react: 18.2.0
