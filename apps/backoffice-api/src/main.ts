@@ -21,7 +21,7 @@ const UserSchema = z.object({
 
 type UserSchema = z.infer<typeof UserSchema>;
 
-router.get('/users', async (ctx) => {
+router.get('/api/users', async (ctx) => {
   try {
     const _users = await prisma.user.findMany();
     ctx.body = _users.map((user) => UserSchema.parse(user));
