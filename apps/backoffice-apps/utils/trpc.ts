@@ -43,6 +43,9 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
      * If you want to use SSR, you need to use the server's full URL
      * @link https://trpc.io/docs/ssr
      */
+
+    const baseUrl = getBaseUrl();
+
     return {
       /**
        * @link https://trpc.io/docs/data-transformers
@@ -60,7 +63,7 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
         }),
 
         httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc`,
+          url: `${baseUrl}/api/trpc`,
         }),
       ],
       /**

@@ -1,11 +1,9 @@
 import styles from './index.module.css';
+import { trpc } from '../utils/trpc';
 
-export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.css file.
-   */
+export const Index = () => {
+  const usersQuery = trpc.user.findMany.useQuery();
+  
   return (
     <div className={styles.page}>
       <div className="wrapper">
@@ -13,7 +11,7 @@ export function Index() {
           <div id="welcome">
             <h1>
               <span> Hello there, </span>
-              Welcome backoffice-apps 👋
+              Welcome to SFA backoffice apps 👋
             </h1>
           </div>
 
