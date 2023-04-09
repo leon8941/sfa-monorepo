@@ -6,7 +6,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to backoffice-apps!</title>
+        <title>Welcome to SFA Backoffice!</title>
       </Head>
       <main className="app">
         <Component {...pageProps} />
