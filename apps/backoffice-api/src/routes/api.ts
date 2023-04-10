@@ -3,6 +3,7 @@ import Router from 'koa-router';
 import { AuthInput } from '../types';
 import { generateAuthToken } from '../services';
 import { prisma } from '@sfa/backoffice-db';
+import { accessMiddleware } from '../middlewares/access';
 
 export const router = new Router();
 
@@ -28,4 +29,9 @@ router.post('/authenticate', async (ctx) => {
   });
   ctx.set('Content-Type', 'application/json');
   ctx.body = JSON.stringify({ accessToken });
+});
+
+router.get('/something', accessMiddleware, async (ctx) => {
+	ctx.set('Content-Type', 'application/json');
+  ctx.body = JSON.stringify({ status: 'ok' });
 });
