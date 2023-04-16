@@ -36,7 +36,7 @@ async function verifyToken(
 export function generateAccessToken(user: TokenInput): Promise<string> {
   const _validated = TokenInput.parse(user);
   const accessToken = generateToken(
-    { id: _validated.id },
+    { ..._validated },
     accessTokenSecretKey,
     {
       audience: 'sfa-api',
@@ -47,9 +47,10 @@ export function generateAccessToken(user: TokenInput): Promise<string> {
   return accessToken;
 }
 
-export function generateRefreshToken(user: RefreshTokenInput): Promise<string> {
+export function generateRefreshToken(user: TokenInput): Promise<string> {
+  const _validated = TokenInput.parse(user);
   const refreshToken = generateToken(
-    { id: user.id },
+    { ..._validated },
     refreshTokenSecretKey,
     {
       audience: 'sfa-api',

@@ -24,12 +24,16 @@ router.post('/authenticate', async (ctx) => {
     return;
   }
 
+  const sessionId = String(Date.now());
+
   const accessToken = await generateAccessToken({
     id: String(user.id),
+    sessionId,
   });
 
   const refreshToken = await generateRefreshToken({
     id: String(user.id),
+    sessionId,
   });
 
   ctx.set('Content-Type', 'application/json');
@@ -41,10 +45,11 @@ router.post('/refresh-token',async (ctx) => {
   const { id, refreshToken } = RefreshTokenInput.parse(_body)
 
   try {
-    await verifyAuthToken(refreshToken, refreshTokenSecretKey);
+    const decoded = await verifyAuthToken(refreshToken, refreshTokenSecretKey);
 
     const accessToken = await generateAccessToken({
-      id
+      id: decoded.id,
+      sessionId: decoded.sessionId,
     })
 
     ctx.set('Content-Type', 'application/json');

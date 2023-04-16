@@ -10,6 +10,7 @@ export type AuthInput = z.infer<typeof AuthInput>;
 
 export const TokenInput = z.object({
   id: z.string(),
+  sessionId: z.string()
 });
 export type TokenInput = z.infer<typeof TokenInput>;
 
