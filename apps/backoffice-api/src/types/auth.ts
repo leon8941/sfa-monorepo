@@ -8,5 +8,20 @@ export const AuthInput = UserSchema.pick({
 });
 export type AuthInput = z.infer<typeof AuthInput>;
 
-export const TokenInput = UserSchema.pick({ id: true, usercode: true });
+export const TokenInput = z.object({
+  id: z.string(),
+});
 export type TokenInput = z.infer<typeof TokenInput>;
+
+export const RefreshTokenInput = z.object({
+  id: z.string(),
+  refreshToken: z.string()
+})
+
+export type RefreshTokenInput = z.infer<typeof RefreshTokenInput>;
+
+export const RefreshTokenOutput = z.object({
+  accessToken: z.string()
+})
+
+export type RefreshTokenOutput = z.infer<typeof RefreshTokenOutput>;

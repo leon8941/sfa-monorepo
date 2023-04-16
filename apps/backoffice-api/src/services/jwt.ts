@@ -1,7 +1,8 @@
 import * as jwt from 'jsonwebtoken';
-import { TokenInput } from '../types';
+import { TokenInput, RefreshTokenInput } from '../types';
 
-const secretKey = 'very-secret-key';
+const accessTokenSecretKey = 'very-access-secret-key';
+const refreshTokenSecretKey = 'very-refresh-secret-key';
 
 async function generateToken(
   payload: object,
@@ -33,21 +34,41 @@ async function verifyToken(
   });
 }
 
-export function generateAuthToken(user: TokenInput): Promise<string> {
+export function generateAccessToken(user: TokenInput): Promise<string> {
+  const _validated = TokenInput.parse(user);
   const accessToken = generateToken(
-    { id: user.id, usercode: user.usercode },
-    secretKey,
+    { id: _validated.id },
+    accessTokenSecretKey,
     {
       audience: 'sfa-api',
+      expiresIn: '15s',
     }
   );
 
   return accessToken;
 }
 
-export function verifyAuthToken(token: string): Promise<jwt.JwtPayload> {
-  return verifyToken(token, secretKey, {
-    audience: 'sfa-api',
-    ignoreExpiration: true,
+export function generateRefreshToken(user: RefreshTokenInput): Promise<string> {
+  const refreshToken = generateToken(
+    { id: user.id },
+    refreshTokenSecretKey,
+    {
+      audience: 'sfa-api',
+      expiresIn: '30s',
+    }
+  );
+
+  return refreshToken;
+}
+
+export function verifyAccessToken(token: string): Promise<jwt.JwtPayload> {
+  return verifyToken(token, accessTokenSecretKey, {
+    audience: 'sfa-api'
+  });
+}
+
+export function verifyRefreshToken(token: string): Promise<jwt.JwtPayload> {
+  return verifyToken(token, refreshTokenSecretKey, {
+    audience: 'sfa-api'
   });
 }

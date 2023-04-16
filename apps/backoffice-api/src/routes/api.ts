@@ -1,7 +1,8 @@
+import { TokenExpiredError } from 'jsonwebtoken';
 import Router from 'koa-router';
 
-import { AuthInput } from '../types';
-import { generateAuthToken } from '../services';
+import { AuthInput, RefreshTokenInput } from '../types';
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../services';
 import { prisma } from '@sfa/backoffice-db';
 import { accessMiddleware } from '../middlewares/access';
 
@@ -23,13 +24,39 @@ router.post('/authenticate', async (ctx) => {
     return;
   }
 
-  const accessToken = await generateAuthToken({
+  const accessToken = await generateAccessToken({
     id: String(user.id),
-    usercode: user.usercode,
   });
+
+  const refreshToken = await generateRefreshToken({
+    id: String(user.id),
+  });
+
   ctx.set('Content-Type', 'application/json');
-  ctx.body = JSON.stringify({ accessToken });
+  ctx.body = JSON.stringify({ id: String(user.id), accessToken, refreshToken });
 });
+
+router.post('/refresh-token',async (ctx) => {
+  const _body: RefreshTokenInput = ctx.request.body;
+  const { id, refreshToken } = RefreshTokenInput.parse(_body)
+
+  try {
+    await verifyRefreshToken(refreshToken);
+
+    const accessToken = await generateAccessToken({
+      id
+    })
+
+    ctx.set('Content-Type', 'application/json');
+    ctx.body = JSON.stringify({ accessToken });
+  } catch (exception: unknown) {
+    if (exception instanceof TokenExpiredError) {
+      ctx.throw(401, JSON.stringify({ error: exception }));
+    }
+
+    ctx.throw(401, `Unknown Error: ${exception}`);
+  }
+})
 
 router.get('/something', accessMiddleware, async (ctx) => {
 	ctx.set('Content-Type', 'application/json');

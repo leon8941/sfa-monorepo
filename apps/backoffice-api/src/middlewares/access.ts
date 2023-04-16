@@ -1,6 +1,8 @@
-import { verifyAuthToken } from '../services';
+import { Context } from 'koa';
+import { TokenExpiredError } from 'jsonwebtoken';
+import { verifyAccessToken } from '../services';
 
-export async function accessMiddleware(ctx, next) {
+export async function accessMiddleware(ctx: Context, next) {
   const { authorization } = ctx.request.headers;
   if (!authorization) {
     ctx.throw(401, 'No authorization provided');
@@ -10,10 +12,14 @@ export async function accessMiddleware(ctx, next) {
     ctx.throw(401, 'No token provided');
   }
   try {
-    const decoded = await verifyAuthToken(token);
+    const decoded = await verifyAccessToken(token);
     ctx.state.user = decoded;
     return next();
-  } catch (err) {
-    ctx.throw(401, 'Invalid token');
+  } catch (exception: unknown) {
+    if (exception instanceof TokenExpiredError) {
+      ctx.throw(401, JSON.stringify({ error: exception }));
+    }
+
+    ctx.throw(401, `Unknown Error: ${exception}`);
   }
 }
