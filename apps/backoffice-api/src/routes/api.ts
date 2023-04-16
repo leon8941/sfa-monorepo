@@ -1,4 +1,4 @@
-import { TokenExpiredError } from 'jsonwebtoken';
+import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import Router from 'koa-router';
 
 import { AuthInput, RefreshTokenInput } from '../types';
@@ -29,15 +29,16 @@ router.post('/authenticate', async (ctx) => {
     return;
   }
 
-  const sessionId = String(Date.now());
+  const currentUnixTimeStamp = String(Date.now());
 
   const accessToken = await generateAccessToken({
     id: String(user.id),
-    sessionId,
+    sessionId: currentUnixTimeStamp,
   });
 
   const refreshToken = await generateRefreshToken({
     id: String(user.id),
+    refreshId: currentUnixTimeStamp,
   });
 
   await prisma.user.update({
@@ -45,8 +46,10 @@ router.post('/authenticate', async (ctx) => {
       id: user.id,
     },
     data: {
-      sessionId: sessionId,
+      sessionId: currentUnixTimeStamp,
       authenticatedAt: new Date(),
+      refreshId: currentUnixTimeStamp,
+      refreshedAt: new Date(),
     },
   });
 
@@ -60,6 +63,18 @@ router.post('/refresh-token', async (ctx) => {
 
   try {
     const decoded = await verifyAuthToken(refreshToken, refreshTokenSecretKey);
+
+    if (!decoded.refreshId) {
+      const error = new JsonWebTokenError('Refresh token not found!')
+      throw error.message;
+    }
+    
+    await prisma.user.findFirstOrThrow({
+      where: {
+        id: BigInt(decoded.id),
+        refreshId: decoded.refreshId,
+      },
+    });
 
     const sessionId = String(Date.now());
 
@@ -99,6 +114,8 @@ router.post('/logout', validateToken, async (ctx) => {
     data: {
       sessionId: null,
       authenticatedAt: null,
+      refreshId: null,
+      refreshedAt: null,
     },
   });
 

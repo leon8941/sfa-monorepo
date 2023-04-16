@@ -19,6 +19,8 @@ model User {
   organisation    String
   sessionId       String?
   authenticatedAt DateTime?
+  refreshId     String?
+  refreshedAt     DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
