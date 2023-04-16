@@ -41,6 +41,16 @@ router.post('/authenticate', async (ctx) => {
     sessionId,
   });
 
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      sessionId: sessionId,
+      authenticatedAt: new Date(),
+    },
+  });
+
   ctx.set('Content-Type', 'application/json');
   ctx.body = JSON.stringify({ id: String(user.id), accessToken, refreshToken });
 });

@@ -17,6 +17,8 @@ model User {
   usercode        String    @unique
   password        String
   organisation    String
+  sessionId       String?
+  authenticatedAt DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }

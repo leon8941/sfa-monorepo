@@ -1,5 +1,7 @@
 import { Context } from 'koa';
 import { TokenExpiredError } from 'jsonwebtoken';
+import { Prisma } from '@prisma/client';
+import { prisma } from '@sfa/backoffice-db';
 import { verifyAuthToken, accessTokenSecretKey } from '../services';
 
 export async function accessMiddleware(ctx: Context, next) {
@@ -13,11 +15,22 @@ export async function accessMiddleware(ctx: Context, next) {
   }
   try {
     const decoded = await verifyAuthToken(token, accessTokenSecretKey);
+    await prisma.user.findFirstOrThrow({
+      where: {
+        id: BigInt(decoded.id),
+        sessionId: decoded.sessionId,
+      },
+    });
+
     ctx.state.user = decoded;
     return next();
   } catch (exception: unknown) {
     if (exception instanceof TokenExpiredError) {
       ctx.throw(401, JSON.stringify({ error: exception }));
+    }
+
+    if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+      ctx.throw(404, JSON.stringify({ error: exception }));
     }
 
     ctx.throw(401, `Unknown Error: ${exception}`);
