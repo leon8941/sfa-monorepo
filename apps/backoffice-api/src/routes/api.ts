@@ -9,7 +9,7 @@ import {
   refreshTokenSecretKey,
 } from '../services';
 import { prisma } from '@sfa/backoffice-db';
-import { accessMiddleware } from '../middlewares/access';
+import { validateToken } from '../middlewares/access';
 
 export const router = new Router();
 
@@ -38,7 +38,6 @@ router.post('/authenticate', async (ctx) => {
 
   const refreshToken = await generateRefreshToken({
     id: String(user.id),
-    sessionId,
   });
 
   await prisma.user.update({
@@ -62,9 +61,21 @@ router.post('/refresh-token', async (ctx) => {
   try {
     const decoded = await verifyAuthToken(refreshToken, refreshTokenSecretKey);
 
+    const sessionId = String(Date.now());
+    
     const accessToken = await generateAccessToken({
       id: decoded.id,
-      sessionId: decoded.sessionId,
+      sessionId,
+    });
+
+    await prisma.user.update({
+      where: {
+        id: BigInt(decoded.id),
+      },
+      data: {
+        sessionId: sessionId,
+        authenticatedAt: new Date(),
+      },
     });
 
     ctx.set('Content-Type', 'application/json');
@@ -78,7 +89,7 @@ router.post('/refresh-token', async (ctx) => {
   }
 });
 
-router.get('/something', accessMiddleware, async (ctx) => {
+router.get('/something', validateToken, async (ctx) => {
   ctx.set('Content-Type', 'application/json');
   ctx.body = JSON.stringify({ status: 'ok' });
 });

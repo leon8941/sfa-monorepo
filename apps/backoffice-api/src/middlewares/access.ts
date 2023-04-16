@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@sfa/backoffice-db';
 import { verifyAuthToken, accessTokenSecretKey } from '../services';
 
-export async function accessMiddleware(ctx: Context, next) {
+export async function validateToken(ctx: Context, next) {
   const { authorization } = ctx.request.headers;
   if (!authorization) {
     ctx.throw(401, 'No authorization provided');
