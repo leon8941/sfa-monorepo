@@ -2,7 +2,7 @@ import { TokenExpiredError } from 'jsonwebtoken';
 import Router from 'koa-router';
 
 import { AuthInput, RefreshTokenInput } from '../types';
-import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../services';
+import { generateAccessToken, generateRefreshToken, verifyAuthToken, refreshTokenSecretKey } from '../services';
 import { prisma } from '@sfa/backoffice-db';
 import { accessMiddleware } from '../middlewares/access';
 
@@ -41,7 +41,7 @@ router.post('/refresh-token',async (ctx) => {
   const { id, refreshToken } = RefreshTokenInput.parse(_body)
 
   try {
-    await verifyRefreshToken(refreshToken);
+    await verifyAuthToken(refreshToken, refreshTokenSecretKey);
 
     const accessToken = await generateAccessToken({
       id

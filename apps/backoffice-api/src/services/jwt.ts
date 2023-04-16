@@ -1,8 +1,7 @@
 import * as jwt from 'jsonwebtoken';
+import { accessTokenSecretKey, refreshTokenSecretKey } from './secret-keys';
 import { TokenInput, RefreshTokenInput } from '../types';
 
-const accessTokenSecretKey = 'very-access-secret-key';
-const refreshTokenSecretKey = 'very-refresh-secret-key';
 
 async function generateToken(
   payload: object,
@@ -61,14 +60,8 @@ export function generateRefreshToken(user: RefreshTokenInput): Promise<string> {
   return refreshToken;
 }
 
-export function verifyAccessToken(token: string): Promise<jwt.JwtPayload> {
-  return verifyToken(token, accessTokenSecretKey, {
-    audience: 'sfa-api'
-  });
-}
-
-export function verifyRefreshToken(token: string): Promise<jwt.JwtPayload> {
-  return verifyToken(token, refreshTokenSecretKey, {
+export function verifyAuthToken(token: string, secretKey: string): Promise<jwt.JwtPayload> {
+  return verifyToken(token, secretKey, {
     audience: 'sfa-api'
   });
 }
