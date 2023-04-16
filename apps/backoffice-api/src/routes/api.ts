@@ -62,7 +62,7 @@ router.post('/refresh-token', async (ctx) => {
     const decoded = await verifyAuthToken(refreshToken, refreshTokenSecretKey);
 
     const sessionId = String(Date.now());
-    
+
     const accessToken = await generateAccessToken({
       id: decoded.id,
       sessionId,
@@ -87,6 +87,22 @@ router.post('/refresh-token', async (ctx) => {
 
     ctx.throw(401, `Unknown Error: ${exception}`);
   }
+});
+
+router.post('/logout', validateToken, async (ctx) => {
+  const user = ctx.state.user;
+
+  await prisma.user.update({
+    where: {
+      id: BigInt(user.id),
+    },
+    data: {
+      sessionId: null,
+      authenticatedAt: null,
+    },
+  });
+
+  ctx.body = JSON.stringify({ status: 'ok', message: 'logged out' });
 });
 
 router.get('/something', validateToken, async (ctx) => {

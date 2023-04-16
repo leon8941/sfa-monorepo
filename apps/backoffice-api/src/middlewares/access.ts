@@ -15,14 +15,14 @@ export async function validateToken(ctx: Context, next) {
   }
   try {
     const decoded = await verifyAuthToken(token, accessTokenSecretKey);
-    await prisma.user.findFirstOrThrow({
+    const user = await prisma.user.findFirstOrThrow({
       where: {
         id: BigInt(decoded.id),
         sessionId: decoded.sessionId,
       },
     });
 
-    ctx.state.user = decoded;
+    ctx.state.user = user;
     return next();
   } catch (exception: unknown) {
     if (exception instanceof TokenExpiredError) {
