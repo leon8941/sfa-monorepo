@@ -19,9 +19,3 @@ export const RefreshTokenInput = z.object({
 })
 
 export type RefreshTokenInput = z.infer<typeof RefreshTokenInput>;
-
-export const RefreshTokenOutput = z.object({
-  accessToken: z.string()
-})
-
-export type RefreshTokenOutput = z.infer<typeof RefreshTokenOutput>;
