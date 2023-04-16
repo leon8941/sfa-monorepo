@@ -41,7 +41,7 @@ export function generateAccessToken(user: TokenInput): Promise<string> {
     accessTokenSecretKey,
     {
       audience: 'sfa-api',
-      expiresIn: '15s',
+      expiresIn: '1 days',
     }
   );
 
@@ -54,7 +54,7 @@ export function generateRefreshToken(user: RefreshTokenInput): Promise<string> {
     refreshTokenSecretKey,
     {
       audience: 'sfa-api',
-      expiresIn: '30s',
+      expiresIn: '2 days',
     }
   );
 
