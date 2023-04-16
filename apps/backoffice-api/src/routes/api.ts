@@ -2,7 +2,12 @@ import { TokenExpiredError } from 'jsonwebtoken';
 import Router from 'koa-router';
 
 import { AuthInput, RefreshTokenInput } from '../types';
-import { generateAccessToken, generateRefreshToken, verifyAuthToken, refreshTokenSecretKey } from '../services';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyAuthToken,
+  refreshTokenSecretKey,
+} from '../services';
 import { prisma } from '@sfa/backoffice-db';
 import { accessMiddleware } from '../middlewares/access';
 
@@ -40,9 +45,9 @@ router.post('/authenticate', async (ctx) => {
   ctx.body = JSON.stringify({ id: String(user.id), accessToken, refreshToken });
 });
 
-router.post('/refresh-token',async (ctx) => {
+router.post('/refresh-token', async (ctx) => {
   const _body: RefreshTokenInput = ctx.request.body;
-  const { id, refreshToken } = RefreshTokenInput.parse(_body)
+  const { refreshToken } = RefreshTokenInput.parse(_body);
 
   try {
     const decoded = await verifyAuthToken(refreshToken, refreshTokenSecretKey);
@@ -50,7 +55,7 @@ router.post('/refresh-token',async (ctx) => {
     const accessToken = await generateAccessToken({
       id: decoded.id,
       sessionId: decoded.sessionId,
-    })
+    });
 
     ctx.set('Content-Type', 'application/json');
     ctx.body = JSON.stringify({ accessToken });
@@ -61,9 +66,9 @@ router.post('/refresh-token',async (ctx) => {
 
     ctx.throw(401, `Unknown Error: ${exception}`);
   }
-})
+});
 
 router.get('/something', accessMiddleware, async (ctx) => {
-	ctx.set('Content-Type', 'application/json');
+  ctx.set('Content-Type', 'application/json');
   ctx.body = JSON.stringify({ status: 'ok' });
 });

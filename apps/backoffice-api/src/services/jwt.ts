@@ -1,7 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { accessTokenSecretKey, refreshTokenSecretKey } from './secret-keys';
-import { TokenInput, RefreshTokenInput } from '../types';
-
+import { TokenInput } from '../types';
 
 async function generateToken(
   payload: object,
@@ -35,34 +34,29 @@ async function verifyToken(
 
 export function generateAccessToken(user: TokenInput): Promise<string> {
   const _validated = TokenInput.parse(user);
-  const accessToken = generateToken(
-    { ..._validated },
-    accessTokenSecretKey,
-    {
-      audience: 'sfa-api',
-      expiresIn: '1 days',
-    }
-  );
+  const accessToken = generateToken({ ..._validated }, accessTokenSecretKey, {
+    audience: 'sfa-api',
+    expiresIn: '1 days',
+  });
 
   return accessToken;
 }
 
 export function generateRefreshToken(user: TokenInput): Promise<string> {
   const _validated = TokenInput.parse(user);
-  const refreshToken = generateToken(
-    { ..._validated },
-    refreshTokenSecretKey,
-    {
-      audience: 'sfa-api',
-      expiresIn: '2 days',
-    }
-  );
+  const refreshToken = generateToken({ ..._validated }, refreshTokenSecretKey, {
+    audience: 'sfa-api',
+    expiresIn: '2 days',
+  });
 
   return refreshToken;
 }
 
-export function verifyAuthToken(token: string, secretKey: string): Promise<jwt.JwtPayload> {
+export function verifyAuthToken(
+  token: string,
+  secretKey: string
+): Promise<jwt.JwtPayload> {
   return verifyToken(token, secretKey, {
-    audience: 'sfa-api'
+    audience: 'sfa-api',
   });
 }

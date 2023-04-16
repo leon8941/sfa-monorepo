@@ -10,13 +10,12 @@ export type AuthInput = z.infer<typeof AuthInput>;
 
 export const TokenInput = z.object({
   id: z.string(),
-  sessionId: z.string()
+  sessionId: z.string(),
 });
 export type TokenInput = z.infer<typeof TokenInput>;
 
 export const RefreshTokenInput = z.object({
-  id: z.string(),
-  refreshToken: z.string()
-})
+  refreshToken: z.string(),
+});
 
 export type RefreshTokenInput = z.infer<typeof RefreshTokenInput>;
