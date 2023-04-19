@@ -24,6 +24,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn format
+      - run: yarn db-g
       - run: yarn ci-build
       - run: yarn ci-lint
       - run: yarn ci-test
