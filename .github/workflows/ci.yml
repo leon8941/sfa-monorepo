@@ -8,10 +8,12 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
 
@@ -19,10 +21,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      
+
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
           cmd: install
-
-      
