@@ -12,5 +12,5 @@ App.use(koaBody());
 App.use(router.routes());
 
 App.listen(port, host, () => {
-  console.log(`[ ready ] http://${host}:${port}`);
+  console.log(`[ready] http://${host}:${port}`);
 });
