@@ -17,16 +17,14 @@ jobs:
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
 
-      - name: Set Node.js 16.x
+      - name: Setup Yarn and run CI
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-
-      - name: Run yarn install and ci
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
+          cache: yarn
+      - run: yarn install --frozen-lockfile
       - run: yarn format
+      - run: yarn db-g
       - run: yarn ci-build
       - run: yarn ci-lint
       - run: yarn ci-test
