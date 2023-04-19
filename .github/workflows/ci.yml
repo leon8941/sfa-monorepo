@@ -21,8 +21,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
-      - run: yarn install --frozen-lockfile
+      
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
       - run: yarn format
       - run: yarn ci-build
       - run: yarn ci-lint
