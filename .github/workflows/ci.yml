@@ -22,7 +22,11 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Run install
+      - name: Run yarn install and ci
         uses: borales/actions-yarn@v4
         with:
           cmd: install
+      - run: yarn format
+      - run: yarn ci-build
+      - run: yarn ci-lint
+      - run: yarn ci-test
