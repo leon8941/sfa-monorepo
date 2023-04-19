@@ -21,12 +21,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: npm
-
-      - name: Run yarn install and ci
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
+          cache: yarn
       - run: yarn format
       - run: yarn ci-build
       - run: yarn ci-lint
