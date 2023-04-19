@@ -8,9 +8,9 @@
     "db-s": "yarn exec prisma studio --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma",
     "db-g": "yarn exec prisma generate --schema=./packages/databases/backoffice-db/src/prisma/schema.prisma",
     "format": "yarn exec nx format",
-    "ci-build": "yarn exec nx affected --target=build --parallel --max-parallel=2",
-    "ci-lint": "yarn exec nx affected --target=lint --parallel --max-parallel=2",
-    "ci-test": "yarn exec nx affected --target=test --parallel --max-parallel=2",
+    "ci-build": "yarn exec nx affected -t build --parallel=2",
+    "ci-lint": "yarn exec nx affected -t lint --parallel=2",
+    "ci-test": "yarn exec nx affected -t test --parallel=2",
     "serve-api": "yarn db-g && yarn exec nx serve backoffice-api",
     "serve-backoffice": "yarn db-g && yarn exec nx serve backoffice-apps"
   },
