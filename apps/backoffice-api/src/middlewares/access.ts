@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import { TokenExpiredError } from 'jsonwebtoken';
-import { Prisma } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { prisma } from '@sfa/backoffice-db';
 import { verifyAuthToken, accessTokenSecretKey } from '../services';
 
@@ -29,7 +29,7 @@ export async function validateToken(ctx: Context, next) {
       ctx.throw(401, JSON.stringify({ error: exception }));
     }
 
-    if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+    if (exception instanceof PrismaClientKnownRequestError) {
       ctx.throw(404, JSON.stringify({ error: exception }));
     }
 
