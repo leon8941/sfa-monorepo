@@ -5441,13 +5441,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookies@npm:~0.8.0":
-  version: 0.8.0
-  resolution: "cookies@npm:0.8.0"
+"cookies@npm:~0.9.0":
+  version: 0.9.2
+  resolution: "cookies@npm:0.9.2"
   dependencies:
     depd: ~2.0.0
     keygrip: ~1.1.0
-  checksum: 806055a44f128705265b1bc6a853058da18bf80dea3654ad99be20985b1fa1b14f86c1eef73644aab8071241f8a78acd57202b54c4c5c70769fc694fbb9c4edc
+  checksum: 97a87c2021134bf5cde474a8f34fa0918bb796416edc5b02ca43357db8ec95b39339532c69ce6235e8723a566a76bc4360ef880637ce49668a0bee9c98f7b9cf
   languageName: node
   linkType: hard
 
@@ -9882,15 +9882,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koa@npm:~2.14.1":
-  version: 2.14.1
-  resolution: "koa@npm:2.14.1"
+"koa@npm:~2.16.0":
+  version: 2.16.4
+  resolution: "koa@npm:2.16.4"
   dependencies:
     accepts: ^1.3.5
     cache-content-type: ^1.0.0
     content-disposition: ~0.5.2
     content-type: ^1.0.4
-    cookies: ~0.8.0
+    cookies: ~0.9.0
     debug: ^4.3.2
     delegates: ^1.0.0
     depd: ^2.0.0
@@ -9909,7 +9909,7 @@ __metadata:
     statuses: ^1.5.0
     type-is: ^1.6.16
     vary: ^1.1.2
-  checksum: 84cfce48d72cf434831bd9f4f06beb3815da030325a7e89b13ee684f5afd158221e16c2d450ca637b221aa0c4a0ab235edd129e4efea656dc5d8384801d3e90f
+  checksum: 117cacd60e4a9816a0dc7bdf29bc4660fc95718182a12881f7863fe5a40b4e667c9d71891129d794f070f61f5417ffd90ae28cfc58f89f3b87e75351ba2ad201
   languageName: node
   linkType: hard
 
@@ -12689,7 +12689,7 @@ __metadata:
     jest-environment-jsdom: ^29.4.1
     jest-environment-node: ^29.4.1
     jsonwebtoken: ^9.0.0
-    koa: ~2.14.1
+    koa: ~2.16.0
     koa-body: ^6.0.1
     koa-bodyparser: ^4.4.0
     koa-router: ^12.0.0
